@@ -223,11 +223,9 @@
 /* Inside Shadow DOM - inherits from parent */
 class DemoInheritable extends HTMLElement {
     constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
-        this.shadowRoot.innerHTML = `
-            &lt;p&gt;This text inherits color, font-family, and font-size!&lt;/p&gt;
-        `;
+        super() // sets AND returns 'this' scope
+          .attachShadow({ mode: 'open' }) // sets AND returns this.shadowRoot
+          .shadowRoot.innerHTML = `&lt;p&gt;This text inherits color, font-family, and font-size!&lt;/p&gt;`;
     }
 }
             </div>
@@ -363,10 +361,11 @@ sheet.replaceSync(`
 // Adopt it in shadow root
 class DemoAdopted extends HTMLElement {
     constructor() {
-        super();
-        const shadow = this.attachShadow({ mode: 'open' });
-        shadow.adoptedStyleSheets = [sheet];
-        shadow.innerHTML = `&lt;div class="adopted-card"&gt;...&lt;/div&gt;`;
+        super()
+          .attachShadow({ mode: 'open' })
+          .adoptedStyleSheets = [sheet];
+          
+        this.shadowRoot.innerHTML = `&lt;div class="adopted-card"&gt;...&lt;/div&gt;`;
     }
 }
             </div>
@@ -500,12 +499,11 @@ function injectStyleToAll(color) {
         // Method 1: Inheritable Styles Component
         class DemoInheritable extends HTMLElement {
             constructor() {
-                super();
-                const shadow = this.attachShadow({ mode: 'open' });
-                shadow.innerHTML = `
-                    <p>✨ This text inherits color, font-family, and font-size from the parent container!</p>
-                    <p>All inheritable CSS properties flow naturally through the Shadow DOM boundary.</p>
-                `;
+                super()
+                  .attachShadow({ mode: 'open' })
+                  .innerHTML = 
+                    `<p>✨ This text inherits color, font-family, and font-size from the parent container!</p>` +
+                    `<p>All inheritable CSS properties flow naturally through the Shadow DOM boundary.</p>`;
             }
         }
         customElements.define('demo-inheritable', DemoInheritable);
@@ -513,9 +511,9 @@ function injectStyleToAll(color) {
         // Method 2: CSS Custom Properties Component
         class DemoCSSVars extends HTMLElement {
             constructor() {
-                super();
-                const shadow = this.attachShadow({ mode: 'open' });
-                shadow.innerHTML = `
+                super()
+                  .attachShadow({ mode: 'open' })
+                  .innerHTML = `
                     <style>
                         .card {
                             background: var(--demo-bg, #ccc);
@@ -560,9 +558,9 @@ function injectStyleToAll(color) {
         // Method 3: ::part Selector Component
         class DemoPart extends HTMLElement {
             constructor() {
-                super();
-                const shadow = this.attachShadow({ mode: 'open' });
-                shadow.innerHTML = `
+                super()
+                  .attachShadow({ mode: 'open' })
+                  .innerHTML = `
                     <style>
                         .container {
                             border: 1px solid #ddd;
@@ -609,10 +607,11 @@ function injectStyleToAll(color) {
 
         class DemoAdopted extends HTMLElement {
             constructor() {
-                super();
-                const shadow = this.attachShadow({ mode: 'open' });
-                shadow.adoptedStyleSheets = [adoptedSheet];
-                shadow.innerHTML = `
+                super()
+                  .attachShadow({ mode: 'open' })
+                  .adoptedStyleSheets = [adoptedSheet];
+
+                this.shadowRoot.innerHTML = `
                     <div class="adopted-card">
                         <h4>📄 Adopted Stylesheet</h4>
                         <p>This component uses a shared constructable stylesheet. All instances share the same stylesheet object!</p>
@@ -655,9 +654,9 @@ function injectStyleToAll(color) {
         // Method 5: Injectable Component (Open Shadow Root)
         class DemoInject extends HTMLElement {
             constructor() {
-                super();
-                const shadow = this.attachShadow({ mode: 'open' }); // Open shadow root
-                shadow.innerHTML = `
+                super()
+                  .attachShadow({ mode: 'open' })
+                  .innerHTML = `
                     <style>
                         .inject-card {
                             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
