@@ -20,7 +20,18 @@
             padding: 20px;
         }
 
-        .container {
+        /* Ensure custom layout elements render as blocks */
+        shadow-style-container,
+        shadow-style-toc,
+        shadow-style-section,
+        shadow-style-demo-box,
+        shadow-style-info-box,
+        shadow-style-button-row {
+            display: block;
+        }
+
+        .container,
+        shadow-style-container {
             max-width: 1200px;
             margin: 0 auto;
             background: white;
@@ -54,11 +65,13 @@
             margin-bottom: 15px;
         }
 
-        .section {
+        .section,
+        shadow-style-section {
             margin-bottom: 50px;
         }
 
-        .demo-box {
+        .demo-box,
+        shadow-style-demo-box {
             background: #ecf0f1;
             padding: 20px;
             border-radius: 5px;
@@ -90,7 +103,7 @@
         }
 
         /* Styles for Method 2: CSS Custom Properties */
-        .css-vars-demo {
+        .cshadow-style-vars-demo {
             --demo-bg: #3498db;
             --demo-text: white;
             --demo-padding: 20px;
@@ -118,7 +131,8 @@
             color: #666;
         }
 
-        .info-box {
+        .info-box,
+        shadow-style-info-box {
             background: #d1ecf1;
             border: 1px solid #bee5eb;
             border-radius: 5px;
@@ -126,7 +140,8 @@
             margin: 15px 0;
         }
 
-        .info-box strong {
+        .info-box strong,
+        shadow-style-info-box strong {
             color: #0c5460;
         }
 
@@ -145,7 +160,8 @@
             background: #2980b9;
         }
 
-        .toc {
+        .toc,
+        shadow-style-toc {
             background: #f8f9fa;
             font-weight:bold;
             padding: 20px;
@@ -153,33 +169,45 @@
             margin-bottom: 30px;
         }
 
-        .toc ul {
+        .toc ul,
+        shadow-style-toc ul {
             list-style-position: inside;
             margin-left: 20px;
         }
 
-        .toc li {
+        .toc li,
+        shadow-style-toc li {
             margin: 8px 0;
         }
 
-        .toc a {
+        .toc a,
+        shadow-style-toc a {
             color: #3498db;
             text-decoration: none;
         }
 
-        .toc a:hover {
+        .toc a:hover,
+        shadow-style-toc a:hover {
             text-decoration: underline;
+        }
+
+        shadow-style-button-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            margin: 10px 0;
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <shadow-style-container class="container">
         <h1>🎨 Shadow DOM Styling Options</h1>
         <p style="text-align: center; font-size: 1.2em; color: #666; margin-bottom: 30px;">
             A comprehensive guide to styling Web Components with Shadow DOM
         </p>
 
-        <div class="toc">
+        <shadow-style-toc class="toc">
             <h3>Table of Contents</h3>
             <ul>
                 <li><a href="#method1">1. Inheritable Styles</a></li>
@@ -188,10 +216,10 @@
                 <li><a href="#method4">4. Adopted Stylesheets</a></li>
                 <li><a href="#method5">5. Inject Stylesheet in Open Shadow Roots</a></li>
             </ul>
-        </div>
+        </shadow-style-toc>
 
         <!-- Method 1: Inheritable Styles -->
-        <div class="section" id="method1">
+        <shadow-style-section class="section" id="method1">
             <h2>1. Inheritable Styles</h2>
             <p>
                 Certain CSS properties naturally cascade through the Shadow DOM boundary. 
@@ -200,15 +228,15 @@
                 <span class="highlight">line-height</span>, etc.
             </p>
 
-            <div class="info-box">
+            <shadow-style-info-box class="info-box">
                 <strong>Key Point:</strong> Inheritable properties flow from the light DOM into the shadow DOM 
                 unless explicitly overridden inside the shadow DOM.
-            </div>
+            </shadow-style-info-box>
 
             <h3>Demo:</h3>
-            <div class="demo-box inheritable-demo">
+            <shadow-style-demo-box class="demo-box inheritable-demo">
                 <demo-inheritable></demo-inheritable>
-            </div>
+            </shadow-style-demo-box>
 
             <code-embed rows="16">
 /* Light DOM CSS */
@@ -227,10 +255,10 @@ class DemoInheritable extends HTMLElement {
     }
 }
             </code-embed>
-        </div>
+        </shadow-style-section>
 
         <!-- Method 2: CSS Custom Properties -->
-        <div class="section" id="method2">
+        <shadow-style-section class="section" id="method2">
             <h2>2. CSS Custom Properties (CSS Variables)</h2>
             <p>
                 CSS Custom Properties (variables) pierce the Shadow DOM boundary. This is the most flexible 
@@ -238,25 +266,25 @@ class DemoInheritable extends HTMLElement {
                 and they can be used inside the shadow DOM.
             </p>
 
-            <div class="info-box">
+            <shadow-style-info-box class="info-box">
                 <strong>Key Point:</strong> CSS variables are inherited properties, so they automatically flow 
                 into shadow DOM. This makes them perfect for theming systems.
-            </div>
+            </shadow-style-info-box>
 
             <h3>Demo:</h3>
-            <div class="demo-box css-vars-demo">
-                <demo-css-vars></demo-css-vars>
-            </div>
+            <shadow-style-demo-box class="demo-box cshadow-style-vars-demo">
+                <demo-cshadow-style-vars></demo-cshadow-style-vars>
+            </shadow-style-demo-box>
 
-            <div>
+            <shadow-style-button-row>
                 <button onclick="changeTheme('blue')">Blue Theme</button>
                 <button onclick="changeTheme('green')">Green Theme</button>
                 <button onclick="changeTheme('purple')">Purple Theme</button>
-            </div>
+            </shadow-style-button-row>
 
             <code-embed rows="18">
 /* Light DOM CSS */
-.css-vars-demo {
+.cshadow-style-vars-demo {
     --demo-bg: #3498db;
     --demo-text: white;
     --demo-padding: 20px;
@@ -273,10 +301,10 @@ class DemoInheritable extends HTMLElement {
     }
 </style>
 </code-embed>
-        </div>
+        </shadow-style-section>
 
         <!-- Method 3: ::part Selector -->
-        <div class="section" id="method3">
+        <shadow-style-section class="section" id="method3">
             <h2>3. ::part Selector</h2>
             <p>
                 The <span class="highlight">::part()</span> pseudo-element allows you to select and style 
@@ -285,15 +313,15 @@ class DemoInheritable extends HTMLElement {
                 what can be styled from outside.
             </p>
 
-            <div class="info-box">
+            <shadow-style-info-box class="info-box">
                 <strong>Key Point:</strong> The component author must explicitly mark elements with 
                 <code>part="name"</code> to expose them for styling. This provides a well-defined styling API.
-            </div>
+            </shadow-style-info-box>
 
             <h3>Demo:</h3>
-            <div class="demo-box">
+            <shadow-style-demo-box class="demo-box">
                 <demo-part></demo-part>
-            </div>
+            </shadow-style-demo-box>
 
             <code-embed rows="18">
 /* Light DOM CSS - styling shadow parts */
@@ -310,14 +338,14 @@ demo-part::part(content) {
 }
 
 /* Inside Shadow DOM - exposing parts */
-<div part="header">Header Section</div>
-<div part="content">Content Section</div>
-<div part="footer">Footer Section</div>
+<shadow-style-part-header part="header">Header Section</shadow-style-part-header>
+<shadow-style-part-content part="content">Content Section</shadow-style-part-content>
+<shadow-style-part-footer part="footer">Footer Section</shadow-style-part-footer>
             </code-embed>
-        </div>
+        </shadow-style-section>
 
         <!-- Method 4: Adopted Stylesheets -->
-        <div class="section" id="method4">
+        <shadow-style-section class="section" id="method4">
             <h2>4. Adopted Stylesheets</h2>
             <p>
                 Constructable Stylesheets (via <span class="highlight">adoptedStyleSheets</span>) allow you to 
@@ -325,23 +353,23 @@ demo-part::part(content) {
                 efficient for applying the same styles to multiple components.
             </p>
 
-            <div class="info-box">
+            <shadow-style-info-box class="info-box">
                 <strong>Key Point:</strong> Stylesheets created this way can be shared across multiple 
                 shadow roots without duplicating the CSS text, making them memory-efficient.
-            </div>
+            </shadow-style-info-box>
 
             <h3>Demo:</h3>
-            <div class="demo-box">
+            <shadow-style-demo-box class="demo-box">
                 <demo-adopted></demo-adopted>
                 <demo-adopted></demo-adopted>
                 <demo-adopted></demo-adopted>
-            </div>
+            </shadow-style-demo-box>
 
-            <div>
+            <shadow-style-button-row>
                 <button onclick="updateAdoptedStyles('crimson')">Red Theme</button>
                 <button onclick="updateAdoptedStyles('teal')">Teal Theme</button>
                 <button onclick="updateAdoptedStyles('orange')">Orange Theme</button>
-            </div>
+            </shadow-style-button-row>
 
             <code-embed rows="23">
 // Create a constructable stylesheet
@@ -363,14 +391,14 @@ class DemoAdopted extends HTMLElement {
           .attachShadow({ mode: 'open' })
           .adoptedStyleSheets = [sheet];
           
-        this.shadowRoot.innerHTML = `<div class="adopted-card">...</div>`;
+        this.shadowRoot.innerHTML = `<shadow-style-adopted-card class="adopted-card">...</shadow-style-adopted-card>`;
     }
 }
             </code-embed>
-        </div>
+        </shadow-style-section>
 
         <!-- Method 5: Inject Stylesheet -->
-        <div class="section" id="method5">
+        <shadow-style-section class="section" id="method5">
             <h2>5. Inject Own Stylesheet in Open Shadow Roots</h2>
             <p>
                 For components with <span class="highlight">mode: 'open'</span>, external JavaScript can 
@@ -378,24 +406,24 @@ class DemoAdopted extends HTMLElement {
                 useful for plugins, themes, or debugging tools.
             </p>
 
-            <div class="info-box">
+            <shadow-style-info-box class="info-box">
                 <strong>Key Point:</strong> This only works with open shadow roots. Closed shadow roots 
                 cannot be accessed from outside. This technique is powerful but should be used carefully 
                 as it bypasses the component's encapsulation.
-            </div>
+            </shadow-style-info-box>
 
             <h3>Demo:</h3>
-            <div class="demo-box">
+            <shadow-style-demo-box class="demo-box">
                 <demo-inject id="inject1"></demo-inject>
                 <demo-inject id="inject2"></demo-inject>
-            </div>
+            </shadow-style-demo-box>
 
-            <div>
+            <shadow-style-button-row>
                 <button onclick="injectStyle('inject1', '#ff6b6b')">Inject Red Style (Component 1)</button>
                 <button onclick="injectStyle('inject2', '#4ecdc4')">Inject Teal Style (Component 2)</button>
                 <button onclick="injectStyleToAll('#9b59b6')">Inject Purple to All</button>
                 <button onclick="removeInjectedStyles()">Remove Injected Styles</button>
-            </div>
+            </shadow-style-button-row>
 
             <code-embed rows="26">
 // Access open shadow root and inject styles
@@ -424,10 +452,10 @@ function injectStyleToAll(color) {
     });
 }
             </code-embed>
-        </div>
+        </shadow-style-section>
 
         <!-- Comparison Table -->
-        <div class="section">
+        <shadow-style-section class="section">
             <h2>📊 Comparison of Methods</h2>
             <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
                 <thead>
@@ -471,9 +499,9 @@ function injectStyleToAll(color) {
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </shadow-style-section>
 
-        <div class="section">
+        <shadow-style-section class="section">
             <h2>✨ Best Practices</h2>
             <ul style="line-height: 2; margin-left: 30px;">
                 <li><strong>Use CSS Variables</strong> for themeable components - it's the most flexible and maintainable approach</li>
@@ -483,7 +511,7 @@ function injectStyleToAll(color) {
                 <li><strong>Avoid Direct Injection</strong> unless you're building developer tools or plugin systems</li>
                 <li><strong>Document your styling API</strong> - make it clear what CSS variables and parts are available</li>
             </ul>
-        </div>
+        </shadow-style-section>
 
         <footer style="margin-top: 50px; padding-top: 20px; border-top: 2px solid #ecf0f1; text-align: center; color: #666;">
             <p>🎨 Shadow DOM Styling Options Demo | Created for shadow-style.github.io</p>
@@ -491,7 +519,7 @@ function injectStyleToAll(color) {
                 Explore the source code to see how each method is implemented!
             </p>
         </footer>
-    </div>
+    </shadow-style-container>
 
     <script>
         // Method 1: Inheritable Styles Component
@@ -513,7 +541,9 @@ function injectStyleToAll(color) {
                   .attachShadow({ mode: 'open' })
                   .innerHTML = `
                     <style>
+                       shadow-style-card,
                         .card {
+                            display: block;
                             background: var(--demo-bg, #ccc);
                             color: var(--demo-text, black);
                             padding: var(--demo-padding, 10px);
@@ -524,19 +554,19 @@ function injectStyleToAll(color) {
                             margin-bottom: 10px;
                         }
                     </style>
-                    <div class="card">
+                    <shadow-style-card class="card">
                         <h4>🎨 Styled with CSS Variables</h4>
                         <p>This card uses CSS custom properties defined in the light DOM.</p>
                         <p>Change the theme using the buttons above!</p>
-                    </div>
+                    </shadow-style-card>
                 `;
             }
         }
-        customElements.define('demo-css-vars', DemoCSSVars);
+        customElements.define('demo-cshadow-style-vars', DemoCSSVars);
 
         // Change theme function for CSS Variables demo
         function changeTheme(theme) {
-            const container = document.querySelector('.css-vars-demo');
+            const container = document.querySelector('.cshadow-style-vars-demo');
             switch(theme) {
                 case 'blue':
                     container.style.setProperty('--demo-bg', '#3498db');
@@ -560,7 +590,9 @@ function injectStyleToAll(color) {
                   .attachShadow({ mode: 'open' })
                   .innerHTML = `
                     <style>
+                        shadow-style-part-container,
                         .container {
+                            display: block;
                             border: 1px solid #ddd;
                             border-radius: 5px;
                             overflow: hidden;
@@ -569,14 +601,13 @@ function injectStyleToAll(color) {
                             display: block;
                         }
                     </style>
-                    <div class="container">
-                        <div part="header">📋 Header Section (part="header")</div>
-                        <div part="content">
+                    <shadow-style-part-container class="co                                     <shadow-style-part-header                     eader Section (part="header")</shadow-style-part-header>
+                        <shadow-style-part-content part="content">
                             📝 Content Section (part="content")
                             <p>These sections are styled from outside using the ::part() selector!</p>
-                        </div>
-                        <div part="footer">🔖 Footer Section (part="footer")</div>
-                    </div>
+                        </shadow-style-part-content>
+                        <shadow-style-part-footer part="footer">🔖 Footer Section (part="footer")</shadow-style-part-footer>
+                    </shadow-style-part-container>
                 `;
             }
         }
@@ -585,7 +616,9 @@ function injectStyleToAll(color) {
         // Method 4: Adopted Stylesheets Component
         const adoptedSheet = new CSSStyleSheet();
         adoptedSheet.replaceSync(`
+            shadow-style-adopted-card,
             .adopted-card {
+                display: block;
                 background: linear-gradient(45deg, #3498db, #2ecc71);
                 color: white;
                 padding: 20px;
@@ -594,10 +627,12 @@ function injectStyleToAll(color) {
                 box-shadow: 0 4px 6px rgba(0,0,0,0.1);
                 transition: all 0.3s ease;
             }
+            shadow-style-adopted-card:hover,
             .adopted-card:hover {
                 transform: translateY(-2px);
                 box-shadow: 0 6px 12px rgba(0,0,0,0.15);
             }
+            shadow-style-adopted-card h4,
             .adopted-card h4 {
                 margin-bottom: 8px;
             }
@@ -610,10 +645,10 @@ function injectStyleToAll(color) {
                   .adoptedStyleSheets = [adoptedSheet];
 
                 this.shadowRoot.innerHTML = `
-                    <div class="adopted-card">
+                    <shadow-style-adopted-card class="adopted-card">
                         <h4>📄 Adopted Stylesheet</h4>
                         <p>This component uses a shared constructable stylesheet. All instances share the same stylesheet object!</p>
-                    </div>
+                    </shadow-style-adopted-card>
                 `;
             }
         }
@@ -630,7 +665,9 @@ function injectStyleToAll(color) {
             const colorScheme = colors[color] || colors['crimson'];
             
             adoptedSheet.replaceSync(`
+                shadow-style-adopted-card,
                 .adopted-card {
+                                    display: block;
                     background: linear-gradient(45deg, ${colorScheme.start}, ${colorScheme.end});
                     color: white;
                     padding: 20px;
@@ -639,10 +676,12 @@ function injectStyleToAll(color) {
                     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
                     transition: all 0.3s ease;
                 }
+                shadow-style-adopted-card:hover,
                 .adopted-card:hover {
                     transform: translateY(-2px);
                     box-shadow: 0 6px 12px rgba(0,0,0,0.15);
                 }
+                shadow-style-adopted-card h4,
                 .adopted-card h4 {
                     margin-bottom: 8px;
                 }
@@ -656,7 +695,9 @@ function injectStyleToAll(color) {
                   .attachShadow({ mode: 'open' })
                   .innerHTML = `
                     <style>
+                        shadow-style-inject-card,
                         .inject-card {
+                            display: block;
                             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                             color: white;
                             padding: 20px;
@@ -669,11 +710,11 @@ function injectStyleToAll(color) {
                             margin-bottom: 8px;
                         }
                     </style>
-                    <div class="inject-card">
+                    <shadow-style-inject-card class="inject-card">
                         <h4>💉 Injectable Shadow Root</h4>
                         <p>This has an open shadow root. External scripts can inject styles directly!</p>
                         <p>Click the buttons above to inject custom styles into this component.</p>
-                    </div>
+                    </shadow-style-inject-card>
                 `;
             }
         }
