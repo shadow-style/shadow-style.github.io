@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- all AI generated content, enhanced with <code-embed> and replaced all <div> with <tag-name> (undefined) Custom Elements -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shadow DOM Styling Options - Complete Guide</title>
@@ -82,11 +83,17 @@
         code-embed {
             background: #2c3e50;
             color: #ecf0f1;
-            padding: 15px;
+            xpadding: 15px;
             border-radius: 5px;
-            margin: 15px 0;
+            xmargin: 15px 0;
             display: block;
             border: 1px solid #1b2836;
+            overflow:hidden;
+        }
+        code-embed::part(textarea) {
+            line-height: 1.2em; 
+            padding:1em;
+            background: #2c3e50;
         }
 
         .highlight {
@@ -229,7 +236,7 @@
             </p>
 
             <shadow-style-info-box class="info-box">
-                <strong>Key Point:</strong> Inheritable properties flow from the light DOM into the shadow DOM 
+                <strong>Key Point:</strong> Inheritable properties flow from the Global / Light DOM into the shadow DOM 
                 unless explicitly overridden inside the shadow DOM.
             </shadow-style-info-box>
 
@@ -238,8 +245,8 @@
                 <demo-inheritable></demo-inheritable>
             </shadow-style-demo-box>
 
-            <code-embed rows="16">
-/* Light DOM CSS */
+            <code-embed rows="fit">
+/* Global / Light DOM CSS */
 .inheritable-demo {
     color: #e74c3c;
     font-family: Georgia, serif;
@@ -262,7 +269,7 @@ class DemoInheritable extends HTMLElement {
             <h2>2. CSS Custom Properties (CSS Variables)</h2>
             <p>
                 CSS Custom Properties (variables) pierce the Shadow DOM boundary. This is the most flexible 
-                and recommended way to create themeable Web Components. You define variables in the light DOM, 
+                and recommended way to create themeable Web Components. You define variables in the Global / Light DOM, 
                 and they can be used inside the shadow DOM.
             </p>
 
@@ -282,8 +289,8 @@ class DemoInheritable extends HTMLElement {
                 <button onclick="changeTheme('purple')">Purple Theme</button>
             </shadow-style-button-row>
 
-            <code-embed rows="18">
-/* Light DOM CSS */
+            <code-embed rows="fit">
+/* Global / Light DOM CSS */
 .cshadow-style-vars-demo {
     --demo-bg: #3498db;
     --demo-text: white;
@@ -323,8 +330,8 @@ class DemoInheritable extends HTMLElement {
                 <demo-part></demo-part>
             </shadow-style-demo-box>
 
-            <code-embed rows="18">
-/* Light DOM CSS - styling shadow parts */
+            <code-embed rows="fit">
+/* Global / Light DOM CSS - styling shadow parts */
 demo-part::part(header) {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
@@ -371,7 +378,7 @@ demo-part::part(content) {
                 <button onclick="updateAdoptedStyles('orange')">Orange Theme</button>
             </shadow-style-button-row>
 
-            <code-embed rows="23">
+            <code-embed rows="fit">
 // Create a constructable stylesheet
 const sheet = new CSSStyleSheet();
 sheet.replaceSync(`
@@ -391,7 +398,8 @@ class DemoAdopted extends HTMLElement {
           .attachShadow({ mode: 'open' })
           .adoptedStyleSheets = [sheet];
           
-        this.shadowRoot.innerHTML = `<shadow-style-adopted-card class="adopted-card">...</shadow-style-adopted-card>`;
+        this.shadowRoot.innerHTML = 
+             `<shadow-style-adopted-card class="adopted-card">...</shadow-style-adopted-card>`;
     }
 }
             </code-embed>
@@ -425,7 +433,7 @@ class DemoAdopted extends HTMLElement {
                 <button onclick="removeInjectedStyles()">Remove Injected Styles</button>
             </shadow-style-button-row>
 
-            <code-embed rows="26">
+            <code-embed rows="fit">
 // Access open shadow root and inject styles
 function injectStyle(elementId, color) {
     const element = document.getElementById(elementId);
@@ -556,7 +564,7 @@ function injectStyleToAll(color) {
                     </style>
                     <shadow-style-card class="card">
                         <h4>🎨 Styled with CSS Variables</h4>
-                        <p>This card uses CSS custom properties defined in the light DOM.</p>
+                        <p>This card uses CSS custom properties defined in the Global / Light DOM.</p>
                         <p>Change the theme using the buttons above!</p>
                     </shadow-style-card>
                 `;
