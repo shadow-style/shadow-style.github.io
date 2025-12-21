@@ -414,7 +414,7 @@ function injectStyle(elementId, color) {
             transition: all 0.3s ease;
         }
     `;
-    shadowRoot.appendChild(style);
+    shadowRoot.append(style);
 }
 
 // You can also inject into all matching components
@@ -422,7 +422,7 @@ function injectStyleToAll(color) {
     document.querySelectorAll('demo-inject').forEach(el => {
         const style = document.createElement('style');
         style.textContent = `...`;
-        el.shadowRoot.appendChild(style);
+        el.shadowRoot.append(style);
     });
 }
             </div>
@@ -699,7 +699,7 @@ function injectStyleToAll(color) {
                     box-shadow: 0 8px 16px rgba(0,0,0,0.2) !important;
                 }
             `;
-            element.shadowRoot.appendChild(style);
+            element.shadowRoot.append(style);
         }
 
         // Inject styles into all components
@@ -720,7 +720,7 @@ function injectStyleToAll(color) {
                         box-shadow: 0 8px 16px rgba(0,0,0,0.2) !important;
                     }
                 `;
-                el.shadowRoot.appendChild(style);
+                el.shadowRoot.append(style);
             });
         }
 
