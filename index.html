@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shadow DOM Styling Options - Complete Guide</title>
+    <script src="https://code-embed.github.io/elements/code-embed-lite.js"></script> 
     <style>
         * {
             margin: 0;
@@ -65,17 +66,13 @@
             border-left: 4px solid #3498db;
         }
 
-        .code-block {
+        code-embed {
             background: #2c3e50;
             color: #ecf0f1;
             padding: 15px;
             border-radius: 5px;
-            overflow-x: auto;
             margin: 15px 0;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
             display: block;
-            white-space: pre;
             border: 1px solid #1b2836;
         }
 
@@ -150,6 +147,7 @@
 
         .toc {
             background: #f8f9fa;
+            font-weight:bold;
             padding: 20px;
             border-radius: 5px;
             margin-bottom: 30px;
@@ -212,7 +210,7 @@
                 <demo-inheritable></demo-inheritable>
             </div>
 
-            <div class="code-block">
+            <code-embed rows="16">
 /* Light DOM CSS */
 .inheritable-demo {
     color: #e74c3c;
@@ -224,11 +222,11 @@
 class DemoInheritable extends HTMLElement {
     constructor() {
         super() // sets AND returns 'this' scope
-          .attachShadow({ mode: 'open' }) // sets AND returns this.shadowRoot
-          .shadowRoot.innerHTML = `&lt;p&gt;This text inherits color, font-family, and font-size!&lt;/p&gt;`;
+            .attachShadow({ mode: 'open' }) // sets AND returns this.shadowRoot
+            .innerHTML = `<p>This text inherits color, font-family, and font-size!</p>`;
     }
 }
-            </div>
+            </code-embed>
         </div>
 
         <!-- Method 2: CSS Custom Properties -->
@@ -256,7 +254,7 @@ class DemoInheritable extends HTMLElement {
                 <button onclick="changeTheme('purple')">Purple Theme</button>
             </div>
 
-            <div class="code-block">
+            <code-embed rows="18">
 /* Light DOM CSS */
 .css-vars-demo {
     --demo-bg: #3498db;
@@ -266,15 +264,15 @@ class DemoInheritable extends HTMLElement {
 }
 
 /* Inside Shadow DOM - uses variables */
-&lt;style&gt;
+<style>
     .card {
         background: var(--demo-bg, #ccc);
         color: var(--demo-text, black);
         padding: var(--demo-padding, 10px);
         border-radius: var(--demo-border-radius, 5px);
     }
-&lt;/style&gt;
-            </div>
+</style>
+</code-embed>
         </div>
 
         <!-- Method 3: ::part Selector -->
@@ -297,7 +295,7 @@ class DemoInheritable extends HTMLElement {
                 <demo-part></demo-part>
             </div>
 
-            <div class="code-block">
+            <code-embed rows="18">
 /* Light DOM CSS - styling shadow parts */
 demo-part::part(header) {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -312,10 +310,10 @@ demo-part::part(content) {
 }
 
 /* Inside Shadow DOM - exposing parts */
-&lt;div part="header"&gt;Header Section&lt;/div&gt;
-&lt;div part="content"&gt;Content Section&lt;/div&gt;
-&lt;div part="footer"&gt;Footer Section&lt;/div&gt;
-            </div>
+<div part="header">Header Section</div>
+<div part="content">Content Section</div>
+<div part="footer">Footer Section</div>
+            </code-embed>
         </div>
 
         <!-- Method 4: Adopted Stylesheets -->
@@ -345,7 +343,7 @@ demo-part::part(content) {
                 <button onclick="updateAdoptedStyles('orange')">Orange Theme</button>
             </div>
 
-            <div class="code-block">
+            <code-embed rows="23">
 // Create a constructable stylesheet
 const sheet = new CSSStyleSheet();
 sheet.replaceSync(`
@@ -365,10 +363,10 @@ class DemoAdopted extends HTMLElement {
           .attachShadow({ mode: 'open' })
           .adoptedStyleSheets = [sheet];
           
-        this.shadowRoot.innerHTML = `&lt;div class="adopted-card"&gt;...&lt;/div&gt;`;
+        this.shadowRoot.innerHTML = `<div class="adopted-card">...</div>`;
     }
 }
-            </div>
+            </code-embed>
         </div>
 
         <!-- Method 5: Inject Stylesheet -->
@@ -399,7 +397,7 @@ class DemoAdopted extends HTMLElement {
                 <button onclick="removeInjectedStyles()">Remove Injected Styles</button>
             </div>
 
-            <div class="code-block">
+            <code-embed rows="26">
 // Access open shadow root and inject styles
 function injectStyle(elementId, color) {
     const element = document.getElementById(elementId);
@@ -425,7 +423,7 @@ function injectStyleToAll(color) {
         el.shadowRoot.append(style);
     });
 }
-            </div>
+            </code-embed>
         </div>
 
         <!-- Comparison Table -->
