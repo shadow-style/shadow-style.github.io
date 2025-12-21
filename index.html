@@ -31,7 +31,6 @@
             display: block;
         }
 
-        .container,
         shadow-style-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -66,12 +65,10 @@
             margin-bottom: 15px;
         }
 
-        .section,
         shadow-style-section {
             margin-bottom: 50px;
         }
 
-        .demo-box,
         shadow-style-demo-box {
             background: #ecf0f1;
             padding: 20px;
@@ -208,7 +205,7 @@
     </style>
 </head>
 <body>
-    <shadow-style-container class="container">
+    <shadow-style-container>
         <h1>🎨 Shadow DOM Styling Options</h1>
         <p style="text-align: center; font-size: 1.2em; color: #666; margin-bottom: 30px;">
             A comprehensive guide to styling Web Components with Shadow DOM
@@ -226,7 +223,7 @@
         </shadow-style-toc>
 
         <!-- Method 1: Inheritable Styles -->
-        <shadow-style-section class="section" id="method1">
+        <shadow-style-section id="method1">
             <h2>1. Inheritable Styles</h2>
             <p>
                 Certain CSS properties naturally cascade through the Shadow DOM boundary. 
@@ -235,7 +232,7 @@
                 <span class="highlight">line-height</span>, etc.
             </p>
 
-            <shadow-style-info-box class="info-box">
+            <shadow-style-info-box>
                 <strong>Key Point:</strong> Inheritable properties flow from the Global / Light DOM into the shadow DOM 
                 unless explicitly overridden inside the shadow DOM.
             </shadow-style-info-box>
@@ -265,7 +262,7 @@ class DemoInheritable extends HTMLElement {
         </shadow-style-section>
 
         <!-- Method 2: CSS Custom Properties -->
-        <shadow-style-section class="section" id="method2">
+        <shadow-style-section id="method2">
             <h2>2. CSS Custom Properties (CSS Variables)</h2>
             <p>
                 CSS Custom Properties (variables) pierce the Shadow DOM boundary. This is the most flexible 
@@ -273,7 +270,7 @@ class DemoInheritable extends HTMLElement {
                 and they can be used inside the shadow DOM.
             </p>
 
-            <shadow-style-info-box class="info-box">
+            <shadow-style-info-box >
                 <strong>Key Point:</strong> CSS variables are inherited properties, so they automatically flow 
                 into shadow DOM. This makes them perfect for theming systems.
             </shadow-style-info-box>
@@ -311,7 +308,7 @@ class DemoInheritable extends HTMLElement {
         </shadow-style-section>
 
         <!-- Method 3: ::part Selector -->
-        <shadow-style-section class="section" id="method3">
+        <shadow-style-section id="method3">
             <h2>3. ::part Selector</h2>
             <p>
                 The <span class="highlight">::part()</span> pseudo-element allows you to select and style 
@@ -320,7 +317,7 @@ class DemoInheritable extends HTMLElement {
                 what can be styled from outside.
             </p>
 
-            <shadow-style-info-box class="info-box">
+            <shadow-style-info-box >
                 <strong>Key Point:</strong> The component author must explicitly mark elements with 
                 <code>part="name"</code> to expose them for styling. This provides a well-defined styling API.
             </shadow-style-info-box>
@@ -352,7 +349,7 @@ demo-part::part(content) {
         </shadow-style-section>
 
         <!-- Method 4: Adopted Stylesheets -->
-        <shadow-style-section class="section" id="method4">
+        <shadow-style-section id="method4">
             <h2>4. Adopted Stylesheets</h2>
             <p>
                 Constructable Stylesheets (via <span class="highlight">adoptedStyleSheets</span>) allow you to 
@@ -360,7 +357,7 @@ demo-part::part(content) {
                 efficient for applying the same styles to multiple components.
             </p>
 
-            <shadow-style-info-box class="info-box">
+            <shadow-style-info-box >
                 <strong>Key Point:</strong> Stylesheets created this way can be shared across multiple 
                 shadow roots without duplicating the CSS text, making them memory-efficient.
             </shadow-style-info-box>
@@ -406,7 +403,7 @@ class DemoAdopted extends HTMLElement {
         </shadow-style-section>
 
         <!-- Method 5: Inject Stylesheet -->
-        <shadow-style-section class="section" id="method5">
+        <shadow-style-section id="method5">
             <h2>5. Inject Own Stylesheet in Open Shadow Roots</h2>
             <p>
                 For components with <span class="highlight">mode: 'open'</span>, external JavaScript can 
@@ -414,7 +411,7 @@ class DemoAdopted extends HTMLElement {
                 useful for plugins, themes, or debugging tools.
             </p>
 
-            <shadow-style-info-box class="info-box">
+            <shadow-style-info-box >
                 <strong>Key Point:</strong> This only works with open shadow roots. Closed shadow roots 
                 cannot be accessed from outside. This technique is powerful but should be used carefully 
                 as it bypasses the component's encapsulation.
