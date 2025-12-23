@@ -1,4 +1,4 @@
-customElements.define('demo-cshadow-style-vars', class extends HTMLElement {
+customElements.define('demo-style-vars', class extends HTMLElement {
     constructor() {
         super()
             .attachShadow({ mode: 'open' })

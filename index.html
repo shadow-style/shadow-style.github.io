@@ -6,8 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shadow DOM Styling Options - Complete Guide</title>
-    <!-- <script src="https://code-embed.github.io/elements/code-embed-lite.js"></script>  -->
-    <script src="code-embed-lite.js"></script>
+    <script src="https://code-embed.github.io/elements/code-embed-lite.js"></script>
     <script src="global-functions-1-4.js"></script>
     <script src="method1-web-component.js"></script>
     <script src="method2-web-component.js"></script>
@@ -16,6 +15,10 @@
     <script src="method5-web-component.js"></script>
     <script src="method5-global-functions.js"></script>
     <style>
+        section:not(:has(a[name="source-code"])) {
+            /* display: none; */
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -31,16 +34,13 @@
         }
 
         /* Ensure custom layout elements render as blocks */
-        shadow-style-container,
-        shadow-style-toc,
-        section,
-        div,
+        table-of-contents,
         key-point,
         button-row {
             display: block;
         }
 
-        shadow-style-container {
+        body {
             max-width: 1200px;
             margin: 0 auto;
             background: white;
@@ -54,6 +54,14 @@
             margin-bottom: 30px;
             font-size: 2.5em;
             text-align: center;
+        }
+
+        p.subtitle {
+            text-align: center;
+            font-size: 1.5em;
+            color: #666;
+            margin-block-start: 0;
+            margin-bottom: 10px;
         }
 
         h2 {
@@ -107,7 +115,6 @@
             border-radius: 3px;
         }
 
-        .key-point,
         key-point {
             background: #d1ecf1;
             border: 1px solid #bee5eb;
@@ -116,7 +123,6 @@
             margin: 15px 0;
         }
 
-        .key-point strong,
         key-point strong {
             color: #0c5460;
         }
@@ -136,8 +142,7 @@
             background: #2980b9;
         }
 
-        .toc,
-        shadow-style-toc {
+        table-of-contents {
             background: #f8f9fa;
             font-weight: bold;
             padding: 20px;
@@ -145,25 +150,21 @@
             margin-bottom: 30px;
         }
 
-        .toc ul,
-        shadow-style-toc ul {
+        table-of-contents ul {
             list-style-position: inside;
             margin-left: 20px;
         }
 
-        .toc li,
-        shadow-style-toc li {
+        table-of-contents li {
             margin: 8px 0;
         }
 
-        .toc a,
-        shadow-style-toc a {
+        table-of-contents a {
             color: #3498db;
             text-decoration: none;
         }
 
-        .toc a:hover,
-        shadow-style-toc a:hover {
+        table-of-contents a:hover {
             text-decoration: underline;
         }
 
@@ -178,25 +179,29 @@
 </head>
 
 <body>
-    <shadow-style-container>
-        <h1>🎨 Shadow DOM Styling Options</h1>
-        <p style="text-align: center; font-size: 1.2em; color: #666; margin-bottom: 30px;">
+    <header>
+        <h1>🎨 <i>five</i> Shadow DOM Styling Options</h1>
+        <p class="subtitle">
             A comprehensive guide to styling Web Components with Shadow DOM
         </p>
-
-        <shadow-style-toc class="toc">
-            <h3>Table of Contents</h3>
-            <ul>
-                <li><a href="#method1">1. Inheritable Styles</a></li>
-                <li><a href="#method2">2. CSS Custom Properties (CSS Variables)</a></li>
-                <li><a href="#method3">3. ::part Selector</a></li>
-                <li><a href="#method4">4. Adopted Stylesheets</a></li>
-                <li><a href="#method5">5. Inject Stylesheet in Open Shadow Roots</a></li>
-            </ul>
-        </shadow-style-toc>
-
+        <section>
+            <a name="table-of-contents"></a>
+            <table-of-contents>
+                <h3>Table of Contents</h3>
+                <ul>
+                    <li><a href="#method1">1. Inheritable Styles</a></li>
+                    <li><a href="#method2">2. CSS Custom Properties (CSS Variables)</a></li>
+                    <li><a href="#method3">3. ::part Selector</a></li>
+                    <li><a href="#method4">4. Adopted Stylesheets</a></li>
+                    <li><a href="#method5">5. Inject Stylesheet in Open Shadow Roots</a></li>
+                </ul>
+            </table-of-contents>
+            </section>
+            </header>
+            <main>
         <!-- ================================================================== Method 1: Inheritable Styles -->
         <section id="method1">
+            <a name="method1"></a>
             <style id="inheritable-demo">
                 /* Global Styles for Method 1: Inheritable Styles */
                 #method1 demo-inheritable {
@@ -214,7 +219,8 @@
                 <span class="highlight">line-height</span>, etc.
             </p>
             <key-point>
-                <strong>Key Point:</strong> Inheritable properties flow from the Global / Light DOM into the shadow DOM
+                <strong>Key Point:</strong> Inheritable properties flow from the Global / Light DOM into the shadow
+                DOM
                 unless explicitly overridden inside the shadow DOM.
             </key-point>
             <h3>&lt;demo-inheritable&gt;:</h3>
@@ -224,10 +230,11 @@
             <code-embed query="#method1 style"></code-embed>
             <code-embed src="method1-web-component.js"></code-embed>
             <code-embed query="#method1 .demo-box"></code-embed>
-            </section>
+        </section>
 
         <!-- ================================================================== Method 2: CSS Custom Properties -->
         <section id="method2">
+            <a name="method2"></a>
             <style>
                 /* Global Styles for Method 2: CSS Custom Properties */
                 #method2 .vars-demo {
@@ -249,7 +256,8 @@
             <h2>2. CSS Custom Properties (CSS Variables)</h2>
             <p>
                 CSS Custom Properties (variables) pierce the Shadow DOM boundary. This is the most flexible
-                and recommended way to create themeable Web Components. You define variables in the Global / Light DOM,
+                and recommended way to create themeable Web Components. You define variables in the Global / Light
+                DOM,
                 and they can be used inside the shadow DOM.
             </p>
 
@@ -259,9 +267,9 @@
             </key-point>
 
             <h3>Demo:</h3>
-            <div class="demo-box vars-demo">
-                <demo-cshadow-style-vars></demo-cshadow-style-vars>
-            </div>
+            <demo-box class="demo-box vars-demo">
+                <demo-style-vars></demo-style-vars>
+            </demo-box>
 
             <button-row>
                 <button onclick="changeTheme('blue')">Set Blue Theme</button>
@@ -273,9 +281,10 @@
             <code-embed query="#method2shadow" content="outerHTML"></code-embed>
 
         </section>
-        
+
         <!-- ================================================================== Method 3: ::part Selector -->
         <section id="method3">
+            <a name="method3"></a>
             <style>
                 /* Styles for Method 3: ::part selector */
                 demo-part::part(header) {
@@ -341,6 +350,7 @@
 
         <!-- ================================================================== Method 4: Adopted Stylesheets -->
         <section id="method4">
+            <a name="method4"></a>
             <h2>4. Adopted Stylesheets</h2>
             <p>
                 Constructable Stylesheets (via <span class="highlight">adoptedStyleSheets</span>) allow you to
@@ -368,10 +378,11 @@
             </button-row>
 
             <code-embed src="method4-web-component.js"></code-embed>
-            </section>
+        </section>
 
         <!-- ================================================================== Method 5: Inject Stylesheet -->
         <section id="method5">
+            <a name="method5"></a>
             <h2>5. Inject Own Stylesheet in Open Shadow Roots</h2>
             <p>
                 For components with <span class="highlight">mode: 'open'</span>, external JavaScript can
@@ -400,10 +411,11 @@
 
             <code-embed src="method5-global-functions.js"></code-embed>
             <code-embed src="method5-web-component.js"></code-embed>
-            </section>
+        </section>
 
         <!-- ================================================================== Comparison Table -->
         <section class="section">
+            <a name="comparison"></a>
             <h2>📊 Comparison of Methods</h2>
             <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
                 <thead>
@@ -451,12 +463,14 @@
 
         <!-- ================================================================== Best Practices -->
         <section class="section">
+            <a name="best-practices"></a>
             <h2>✨ Best Practices</h2>
             <ul style="line-height: 2; margin-left: 30px;">
                 <li><strong>Use CSS Variables</strong> for themeable components - it's the most flexible and
                     maintainable approach</li>
                 <li><strong>Expose ::part</strong> selectors for specific elements that users should style</li>
-                <li><strong>Leverage Inheritable Styles</strong> for consistent typography across your application</li>
+                <li><strong>Leverage Inheritable Styles</strong> for consistent typography across your application
+                </li>
                 <li><strong>Use Adopted Stylesheets</strong> when you have many instances of the same component</li>
                 <li><strong>Avoid Direct Injection</strong> unless you're building developer tools or plugin systems
                 </li>
@@ -465,14 +479,19 @@
             </ul>
         </section>
 
+        <!-- <section class="section" hidden>
+                    <a name="source-code"></a>
+                    <h2>✨ JavaScript / Web Components used in this page</h2>
+                    <source-viewer src="method1-web-component.js" title="&lt;demo-inheritable>"></source-viewer>
+                </section> -->
+        </main>
         <footer style="margin-top: 50px; padding-top: 20px; border-top: 2px solid #ecf0f1; text-align: center; color: #666;">
+            <a name="footer"></a>
             <p>🎨 Shadow DOM Styling Options Demo | Created for shadow-style.github.io</p>
             <p style="font-size: 0.9em; margin-top: 10px;">
                 Explore the source code to see how each method is implemented!
             </p>
         </footer>
-    </shadow-style-container>
-
 </body>
 
 </html>
