@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shadow DOM Styling Options - Complete Guide</title>
     <script src="https://code-embed.github.io/elements/code-embed-lite.js"></script>
-    <script src="global-functions-1-4.js"></script>
     <script src="method1-web-component.js"></script>
     <script src="method2-web-component.js"></script>
     <script src="method3-web-component.js"></script>
@@ -183,6 +182,8 @@
         <h1>🎨 <i>five</i> Shadow DOM Styling Options</h1>
         <p class="subtitle">
             A comprehensive guide to styling Web Components with Shadow DOM
+            <br>
+            Every code-block is a &lt;textarea> you can copy from
         </p>
         <section>
             <a name="table-of-contents"></a>
@@ -196,9 +197,9 @@
                     <li><a href="#method5">5. Inject Stylesheet in Open Shadow Roots</a></li>
                 </ul>
             </table-of-contents>
-            </section>
-            </header>
-            <main>
+        </section>
+    </header>
+    <main>
         <!-- ================================================================== Method 1: Inheritable Styles -->
         <section id="method1">
             <a name="method1"></a>
@@ -219,17 +220,19 @@
                 <span class="highlight">line-height</span>, etc.
             </p>
             <key-point>
-                <strong>Key Point:</strong> Inheritable properties flow from the Global / Light DOM into the shadow
+                Inheritable properties flow from the Global / Light DOM into the shadow
                 DOM
                 unless explicitly overridden inside the shadow DOM.
             </key-point>
+
             <h3>&lt;demo-inheritable&gt;:</h3>
-            <div class="demo-box">
+            <demo-box>
                 <demo-inheritable><!-- lightDOM remains here but shadowDOM is shown! --></demo-inheritable>
-            </div>
+            </demo-box>
+
             <code-embed query="#method1 style"></code-embed>
             <code-embed src="method1-web-component.js"></code-embed>
-            <code-embed query="#method1 .demo-box"></code-embed>
+            <code-embed query="#method1 demo-box"></code-embed>
         </section>
 
         <!-- ================================================================== Method 2: CSS Custom Properties -->
@@ -237,20 +240,11 @@
             <a name="method2"></a>
             <style>
                 /* Global Styles for Method 2: CSS Custom Properties */
-                #method2 .vars-demo {
+                #method2 demo-css-vars {
                     --demo-bg: dodgerblue;
                     --demo-text: white;
                     --demo-padding: 20px;
                     --demo-border-radius: 10px;
-                }
-            </style>
-            <style id="method2shadow">
-                /* Inside Shadow DOM - uses variables */
-                .card {
-                    background: var(--demo-bg, #ccc);
-                    color: var(--demo-text, black);
-                    padding: var(--demo-padding, 10px);
-                    border-radius: var(--demo-border-radius, 5px);
                 }
             </style>
             <h2>2. CSS Custom Properties (CSS Variables)</h2>
@@ -262,13 +256,13 @@
             </p>
 
             <key-point>
-                <strong>Key Point:</strong> CSS variables are inherited properties, so they automatically flow
+                CSS variables are inherited properties, so they automatically flow
                 into shadow DOM. This makes them perfect for theming systems.
             </key-point>
 
             <h3>Demo:</h3>
-            <demo-box class="demo-box vars-demo">
-                <demo-style-vars></demo-style-vars>
+            <demo-box>
+                <demo-css-vars></demo-css-vars>
             </demo-box>
 
             <button-row>
@@ -278,7 +272,8 @@
             </button-row>
 
             <code-embed query="#method2 style"></code-embed>
-            <code-embed query="#method2shadow" content="outerHTML"></code-embed>
+            <!-- <code-embed query="#method2shadow" content="outerHTML"></code-embed> -->
+            <code-embed src="method2-web-component.js"></code-embed>
 
         </section>
 
@@ -330,15 +325,15 @@
             </p>
 
             <key-point>
-                <strong>Key Point:</strong> The component author must explicitly mark elements with
+                The component author must explicitly mark elements with
                 <code>part="name"</code> to expose them for styling. This provides a well-defined styling API.
             </key-point>
 
             <h3>Demo:</h3>
-            <div class="demo-box">
+            <demo-box>
                 <demo-part></demo-part>
-            </div>
-
+            </demo-box>
+<br>
             <code-embed query="#method3demo"></code-embed>
             <code-embed>
                 /* Inside Shadow DOM - exposing parts */
@@ -359,17 +354,16 @@
             </p>
 
             <key-point>
-                <strong>Key Point:</strong> Stylesheets created this way can be shared across multiple
+                Stylesheets created this way can be shared across multiple
                 shadow roots without duplicating the CSS text, making them memory-efficient.
             </key-point>
 
             <h3>Demo:</h3>
-            <div class="demo-box">
+            <demo-box>
                 <demo-adopted></demo-adopted>
                 <demo-adopted></demo-adopted>
                 <demo-adopted></demo-adopted>
-            </div>
-
+            </demo-box>
             <h4>Change the one stylesheet all 3 cards have adopted:</h4>
             <button-row>
                 <button onclick="updateAdoptedStyles('red')">Update Adopted Style: Red Theme</button>
@@ -391,16 +385,16 @@
             </p>
 
             <key-point>
-                <strong>Key Point:</strong> This only works with open shadow roots. Closed shadow roots
+                This only works with open shadow roots. Closed shadow roots
                 cannot be accessed from outside. This technique is powerful but should be used carefully
                 as it bypasses the component's encapsulation.
             </key-point>
 
             <h3>Demo:</h3>
-            <div class="demo-box">
+            <demo-box>
                 <demo-inject id="inject1"></demo-inject>
                 <demo-inject id="inject2"></demo-inject>
-            </div>
+            </demo-box>
 
             <button-row>
                 <button onclick="injectStyle('inject1', 'green')">Inject Green Style (Component 1)</button>
@@ -414,48 +408,80 @@
         </section>
 
         <!-- ================================================================== Comparison Table -->
-        <section class="section">
+        <section class="section" id="comparison">
             <a name="comparison"></a>
             <h2>📊 Comparison of Methods</h2>
-            <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+            <style>
+                #comparison table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin: 20px 0;
+                }
+
+                #comparison thead tr {
+                    background: #3498db;
+                    color: white;
+                }
+
+                #comparison th {
+                    padding: 12px;
+                    border: 1px solid #ddd;
+                    text-align: left;
+                }
+
+                #comparison td {
+                    padding: 10px;
+                    border: 1px solid #ddd;
+                    padding: 8px;
+                }
+
+                #comparison tbody tr:nth-child(even) {
+                    background: #ecf0f1;
+                }
+
+                #comparison tbody tr:nth-child(odd) {
+                    background: #ffffff;
+                }
+            </style>
+            <table>
                 <thead>
-                    <tr style="background: #3498db; color: white;">
-                        <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Method</th>
-                        <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Control</th>
-                        <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Flexibility</th>
-                        <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Use Case</th>
+                    <tr>
+                        <th>Method</th>
+                        <th>Control</th>
+                        <th>Flexibility</th>
+                        <th>Use Case</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr style="background: #ecf0f1;">
-                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>Inheritable Styles</strong></td>
-                        <td style="padding: 10px; border: 1px solid #ddd;">Limited</td>
-                        <td style="padding: 10px; border: 1px solid #ddd;">Low</td>
-                        <td style="padding: 10px; border: 1px solid #ddd;">Basic typography, colors</td>
+                    <tr>
+                        <td><strong>Inheritable Styles</strong></td>
+                        <td>Limited</td>
+                        <td>Low</td>
+                        <td>Basic typography, colors</td>
                     </tr>
                     <tr>
-                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>CSS Variables</strong></td>
-                        <td style="padding: 10px; border: 1px solid #ddd;">Component defines</td>
-                        <td style="padding: 10px; border: 1px solid #ddd;">High</td>
-                        <td style="padding: 10px; border: 1px solid #ddd;">Theming, customization</td>
-                    </tr>
-                    <tr style="background: #ecf0f1;">
-                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>::part Selector</strong></td>
-                        <td style="padding: 10px; border: 1px solid #ddd;">Component defines</td>
-                        <td style="padding: 10px; border: 1px solid #ddd;">Medium</td>
-                        <td style="padding: 10px; border: 1px solid #ddd;">Specific element styling</td>
+                        <td><strong>CSS Variables</strong></td>
+                        <td>Component defines</td>
+                        <td>High</td>
+                        <td>Theming, customization</td>
                     </tr>
                     <tr>
-                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>Adopted Stylesheets</strong></td>
-                        <td style="padding: 10px; border: 1px solid #ddd;">Component owns</td>
-                        <td style="padding: 10px; border: 1px solid #ddd;">High</td>
-                        <td style="padding: 10px; border: 1px solid #ddd;">Sharing styles, performance</td>
+                        <td><strong>::part Selector</strong></td>
+                        <td>Component defines</td>
+                        <td>Medium</td>
+                        <td>Specific element styling</td>
                     </tr>
-                    <tr style="background: #ecf0f1;">
-                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>Direct Injection</strong></td>
-                        <td style="padding: 10px; border: 1px solid #ddd;">External code</td>
-                        <td style="padding: 10px; border: 1px solid #ddd;">Very High</td>
-                        <td style="padding: 10px; border: 1px solid #ddd;">Plugins, debugging, themes</td>
+                    <tr>
+                        <td><strong>Adopted Stylesheets</strong></td>
+                        <td>Component owns</td>
+                        <td>High</td>
+                        <td>Sharing styles, performance</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Direct Injection</strong></td>
+                        <td>External code</td>
+                        <td>Very High</td>
+                        <td>Plugins, debugging, themes</td>
                     </tr>
                 </tbody>
             </table>
@@ -466,11 +492,11 @@
             <a name="best-practices"></a>
             <h2>✨ Best Practices</h2>
             <ul style="line-height: 2; margin-left: 30px;">
+                <li><strong>Leverage Inheritable Styles</strong> for consistent typography across your application
+                </li>
                 <li><strong>Use CSS Variables</strong> for themeable components - it's the most flexible and
                     maintainable approach</li>
                 <li><strong>Expose ::part</strong> selectors for specific elements that users should style</li>
-                <li><strong>Leverage Inheritable Styles</strong> for consistent typography across your application
-                </li>
                 <li><strong>Use Adopted Stylesheets</strong> when you have many instances of the same component</li>
                 <li><strong>Avoid Direct Injection</strong> unless you're building developer tools or plugin systems
                 </li>
@@ -484,14 +510,53 @@
                     <h2>✨ JavaScript / Web Components used in this page</h2>
                     <source-viewer src="method1-web-component.js" title="&lt;demo-inheritable>"></source-viewer>
                 </section> -->
-        </main>
-        <footer style="margin-top: 50px; padding-top: 20px; border-top: 2px solid #ecf0f1; text-align: center; color: #666;">
-            <a name="footer"></a>
-            <p>🎨 Shadow DOM Styling Options Demo | Created for shadow-style.github.io</p>
-            <p style="font-size: 0.9em; margin-top: 10px;">
-                Explore the source code to see how each method is implemented!
-            </p>
-        </footer>
+    </main>
+    <footer
+        style="margin-top: 50px; padding-top: 20px; border-top: 2px solid #ecf0f1; text-align: center; color: #666;">
+        <a name="footer"></a>
+        <p>🎨 Shadow DOM Styling Options Demo | Created for shadow-style.github.io</p>
+        <p style="font-size: 0.9em; margin-top: 10px;">
+            Explore the source code to see how each method is implemented!
+        </p>
+    </footer>
+    <script>
+        // -------------------------------------------------------------------- Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            console.log('Adding smooth scroll to anchor link:', anchor.getAttribute('href'));
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        customElements.define('key-point', class extends HTMLElement {
+            constructor() {
+                super()
+                    .attachShadow({ mode: 'open' })
+                    .innerHTML = `
+                            <style>
+                                :host {
+                                    display: block;
+                                    border: 1px solid #bee5eb;
+                                    background: #e9f7fb;
+                                    border-radius: 6px;
+                                    padding: 16px;
+                                    margin: 16px 0;
+                                    color: #0c5460;
+                                }
+                                ::slotted(*) {
+                                    display: block;
+                                    margin: 8px 0;
+                                }
+                            </style>
+                            <strong>Key Point:</strong>
+                            <slot></slot>`;
+            }
+        });
+    </script>
 </body>
 
 </html>
