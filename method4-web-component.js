@@ -12,7 +12,7 @@ const stylesheetString = (colorScheme_start, colorScheme_end) =>
     }`;
 // -------------------------------------------------- Create the initial adopted stylesheet
 const adoptedSheet = new CSSStyleSheet();
-adoptedSheet.replaceSync(stylesheetString('#3498db', '#2ecc71'));
+adoptedSheet.replaceSync(stylesheetString('teal', 'blue')); // default colorscheme
 // -------------------------------------------------- Define the custom element
 customElements.define('demo-adopted', class extends HTMLElement {
     constructor() {
@@ -27,3 +27,14 @@ customElements.define('demo-adopted', class extends HTMLElement {
             </adopted-card>`;
     }
 });
+// ================================================== Demo #4 adopted stylesheet update function
+function updateAdoptedStyles(scheme) {
+    const colors = {
+        'red': ['firebrick', 'lightcoral'],
+        'green': ['green', 'olive'],
+        'orange': ['orangered', 'orange']
+    };
+    adoptedSheet.replaceSync(
+        stylesheetString(...colors[scheme] || colors['red']) // create new stylesheet content
+    );
+}

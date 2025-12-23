@@ -27,14 +27,3 @@ function changeTheme(theme) {
             break;
     }
 }
-
-// ==================================================================== #4 Adopted Style Sheet Functions
-function updateAdoptedStyles(color) {
-    const colors = {
-        'crimson': { start: '#dc2626', end: '#991b1b' },
-        'teal': { start: '#14b8a6', end: '#0f766e' },
-        'orange': { start: '#f59e0b', end: '#d97706' }
-    };
-    const colorScheme = colors[color] || colors['crimson'];
-    adoptedSheet.replaceSync(stylesheetString(colorScheme.start, colorScheme.end));
-}
