@@ -55,6 +55,16 @@
             margin-bottom: 30px;
             font-size: 2.5em;
             text-align: center;
+            position: relative;
+        }
+
+        .top-button {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 8px 12px;
+            font-size: 0.9em;
         }
 
         p.subtitle {
@@ -193,7 +203,9 @@
 
 <body>
     <header>
-        <h1>🎨 <i>five</i> Shadow DOM Styling Options</h1>
+        <h1>🎨 <i>five</i> Shadow DOM Styling Options
+            <button class="top-button" type="button" aria-label="Back to top" onclick="scrollToTop()">↑ Top</button>
+        </h1>
         <p class="subtitle">
             A comprehensive guide to styling Web Components with Shadow DOM
         </p>
@@ -608,6 +620,10 @@
     </footer>
     <script>
         // -------------------------------------------------------------------- Smooth scrolling for anchor links
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             console.log('Adding smooth scroll to anchor link:', anchor.getAttribute('href'));
             anchor.addEventListener('click', function (e) {
