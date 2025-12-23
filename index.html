@@ -59,12 +59,12 @@
         }
 
         .top-button {
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
+            position: fixed;
+            right: 2%;
+            top: 5%;
+            /* transform: translateY(-50%); */
             padding: 8px 12px;
-            font-size: 0.9em;
+            font-size: 1em;
         }
 
         p.subtitle {
@@ -171,7 +171,7 @@
         }
 
         table-of-contents a {
-            color: blue; 
+            color: blue;
             text-decoration: none;
         }
 
@@ -203,9 +203,7 @@
 
 <body>
     <header>
-        <h1>🎨 <i>five</i> Shadow DOM Styling Options
-            <button class="top-button" type="button" aria-label="Back to top" onclick="scrollToTop()">↑ Top</button>
-        </h1>
+        <h1>🎨 <i>five</i> Shadow DOM Styling Options</h1>
         <p class="subtitle">
             A comprehensive guide to styling Web Components with Shadow DOM
         </p>
@@ -217,7 +215,8 @@
                     These demos assumes you have basic knowledge of Web Components and Shadow DOM.
                     If you're new to these concepts, consider reviewing introductory materials first.
                 </li>
-                <li>Most who complain about shadowDOM, complain about global styles not being applied; that is half the story
+                <li>Most who complain about shadowDOM, complain about global styles not being applied; that is half the
+                    story
                 </li>
             </ul>
         </div>
@@ -228,26 +227,26 @@
                         font: 16px arial;
                         --bgcolor: var(--light-background, beige);
                     }
-        
+
                     text[dy] {
                         font-size: 75%;
                         dominant-baseline: middle;
                     }
-        
+
                     #Yes {
                         font-size: 50%;
                     }
-        
+
                     svg,
                     background-shadowRoot {
                         background: var(--bgcolor);
                         fill: var(--bgcolor);
                     }
-        
+
                     #global-styles {
                         fill: darkred;
                     }
-        
+
                     #component-styles {
                         fill: darkgreen;
                     }
@@ -619,13 +618,8 @@
         </p>
     </footer>
     <script>
-        // -------------------------------------------------------------------- Smooth scrolling for anchor links
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            console.log('Adding smooth scroll to anchor link:', anchor.getAttribute('href'));
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
@@ -659,6 +653,22 @@
                             <slot></slot>`;
             }
         });
+
+        document.querySelectorAll('h1').forEach(h1 => {
+            console.log('Adding Top button to H1',h1);
+            h1.append(
+                Object.assign(document.createElement('button'), {
+                    className: 'top-button',
+                    type: 'button',
+                    ariaLabel: 'Back to top',
+                    innerText: '↑ Top',
+                    onclick: evt => {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                })
+            )
+        });
+
     </script>
 </body>
 
