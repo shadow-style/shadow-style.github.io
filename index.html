@@ -25,10 +25,12 @@
         }
 
         body {
+            --body-background: #f5f5f5;
+            --light-background: #ecf0f1;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            background: #f5f5f5;
+            background: var(--body-background);
             padding: 20px;
         }
 
@@ -86,7 +88,7 @@
         }
 
         div {
-            background: #ecf0f1;
+            background: var(--light-background);
             padding: 20px;
             border-radius: 5px;
             margin: 20px 0;
@@ -159,7 +161,7 @@
         }
 
         table-of-contents a {
-            color: #3498db;
+            color: blue; 
             text-decoration: none;
         }
 
@@ -174,6 +176,18 @@
             align-items: center;
             margin: 10px 0;
         }
+
+        #notes ul {
+            padding-left: 1.25em;
+            margin: 0.5em 0 0;
+        }
+
+        #notes ul li {
+            margin-left: 0;
+            display: list-item;
+            padding-left: 0;
+            background: none;
+        }
     </style>
 </head>
 
@@ -182,9 +196,82 @@
         <h1>🎨 <i>five</i> Shadow DOM Styling Options</h1>
         <p class="subtitle">
             A comprehensive guide to styling Web Components with Shadow DOM
-            <br>
-            Every code-block is a &lt;textarea> you can copy from
         </p>
+        <div id="notes">
+            <p><b>Notes:</b></p>
+            <ul>
+                <li>Every code-block is a &lt;textarea> you can copy from</li>
+                <li>
+                    These demos assumes you have basic knowledge of Web Components and Shadow DOM.
+                    If you're new to these concepts, consider reviewing introductory materials first.
+                </li>
+                <li>Most who complain about shadowDOM, complain about global styles not being applied; that is half the story
+                </li>
+            </ul>
+        </div>
+        <section>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 80">
+                <style>
+                    svg {
+                        font: 16px arial;
+                        --bgcolor: var(--light-background, beige);
+                    }
+        
+                    text[dy] {
+                        font-size: 75%;
+                        dominant-baseline: middle;
+                    }
+        
+                    #Yes {
+                        font-size: 50%;
+                    }
+        
+                    svg,
+                    background-shadowRoot {
+                        background: var(--bgcolor);
+                        fill: var(--bgcolor);
+                    }
+        
+                    #global-styles {
+                        fill: darkred;
+                    }
+        
+                    #component-styles {
+                        fill: darkgreen;
+                    }
+                </style>
+                <path id="guide" pathLength="100" d="M0 35h340" stroke-dasharray="1" stroke="blue" stroke-width="2">
+                </path>
+                <rect id="background-shadowRoot" x="25%" y="30%" width="170" height="20" />
+                <text fill="blue" stroke="none" style="background:beige">
+                    <textPath href="#guide" startoffset="50" dominant-baseline="middle" text-anchor="middle">shadowRoot
+                        boundary
+                    </textPath>
+                </text>
+                <g id="global-styles" text-anchor="start">
+                    <text dy="-20">
+                        <textPath href="#guide" startoffset="2">global styles can't style Web Component*</textPath>
+                    </text>
+                    <text dy="-6">
+                        <textPath href="#guide" startoffset="1">▼ ▼ ▼ ▼ ▼</textPath>
+                    </text>
+                    <text dy="35" id="Yes">
+                        <textPath href="#guide" startoffset="2">* Yes they can! Use CSS properties, the CSS ::part
+                            selector or
+                            adopted Stylesheets</textPath>
+                    </text>
+                    <text dy="-6">
+                </g>
+                <g id="component-styles" text-anchor="end">
+                    <text dy="8">
+                        <textPath href="#guide" startoffset="99">▲ ▲ ▲ ▲ ▲</textPath>
+                    </text>
+                    <text dy="20">
+                        <textPath href="#guide" startoffset="98">Web Component styles can't taint global page</textPath>
+                    </text>
+                </g>
+            </svg>
+        </section>
         <section>
             <a name="table-of-contents"></a>
             <table-of-contents>
@@ -333,7 +420,7 @@
             <demo-box>
                 <demo-part></demo-part>
             </demo-box>
-<br>
+            <br>
             <code-embed query="#method3demo"></code-embed>
             <code-embed>
                 /* Inside Shadow DOM - exposing parts */
